@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-gpuID = 1
+gpuID = 0
 os.environ['CUDA_VISIBLE_DIVICES'] = str(gpuID)
 
 import gym
@@ -97,7 +97,6 @@ def get_cart_location():
     scale = screen_width / world_width
     return int(env.state[0] * scale + screen_width / 2.0)  # MIDDLE OF CART
 
-
 def get_screen():
     screen = env.render(mode='rgb_array').transpose(
         (2, 0, 1))  # transpose into torch order (CHW)
@@ -120,6 +119,7 @@ def get_screen():
     screen = torch.from_numpy(screen)
     # Resize, and add a batch dimension (BCHW)
     return resize(screen).unsqueeze(0).type(Tensor)
+
 
 env.reset()
 plt.figure()
